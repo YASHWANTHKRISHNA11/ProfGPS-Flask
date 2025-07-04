@@ -1,0 +1,36 @@
+<!-- attendance-success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Success - ProfGPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ProfGPS</h1>
+    </div>
+  </header>
+
+  <main class="success-message">
+    <h2>✅ Attendance Marked Successfully</h2>
+    <p>Faculty ID: <strong>{{ faculty_id }}</strong></p>
+<p>Time: <strong>{{ timestamp }}</strong></p>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+  </main>
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const timeSpan = document.getElementById("time");
+    const now = new Date();
+    timeSpan.textContent = now.toLocaleTimeString();
+  </script>
+</body>
+</html>

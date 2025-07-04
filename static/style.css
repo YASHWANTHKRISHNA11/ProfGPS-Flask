@@ -1,0 +1,247 @@
+/* style.css - Neon Tech Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #0a0f1c;
+  color: #00ccff;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: transparent;
+  border-bottom: 2px solid #7054f9;
+  padding: 1rem 0;
+  backdrop-filter: blur(6px);
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-container img {
+  height: 100px;
+  width: 100px;
+}
+
+.logo-container h1 {
+  font-size: 1.8rem;
+  color: #7054f9;
+  text-shadow: 0 0 10px #7054f9;
+}
+
+/* Navigation */
+nav a {
+  color: #00ccff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #7054f9;
+}
+
+/* Hero Section */
+.hero {
+  padding: 5rem 1rem;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #b0e0ff;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #7054f9;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 12px #7054f9;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #917bff;
+  transform: scale(1.05);
+}
+
+/* Form Container */
+.form-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #7054f9;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 15px #7054f9;
+}
+
+form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: 1px solid #7054f9;
+  border-radius: 6px;
+  color: #00f6ff;
+  outline: none;
+}
+
+form input::placeholder {
+  color: #88e2ff;
+}
+
+form button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #7054f9;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #7054f9;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #917bff;
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.success-message h2 {
+  color: #00f6ff;
+  text-shadow: 0 0 10px #00f6ff;
+}
+
+.success-message p {
+  color: #b0e0ff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #0a0f1c;
+  color: #888;
+  font-size: 0.9rem;
+  border-top: 1px solid #7054f9;
+  margin-top: 2rem;
+}
+.watermark-container {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 300px auto;
+  opacity: 0.2;
+}
+/* Table Styling for Admin Dashboard */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th, table td {
+  border: 1px solid #7054f9;
+  padding: 0.75rem;
+  text-align: left;
+  color: #00ccff;
+}
+
+table th {
+  background-color: #1c2237;
+  color: #00f6ff;
+  text-shadow: 0 0 6px #00f6ff;
+}
+
+table tr:nth-child(even) {
+  background-color: #101624;
+}
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  border: 1px solid #7054f9;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  color: #b0e0ff;
+}
+
+.dashboard-table th {
+  background-color: #1a1f2e;
+  color: #00f6ff;
+  font-weight: bold;
+  text-shadow: 0 0 6px #7054f9;
+}
+
+.dashboard-table td {
+  background-color: #0f1322;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+/* For WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Track background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00ffcc; /* Thumb (the handle) */
+  border-radius: 10px;
+  border: 2px solid #1a1a1a; /* Optional: border around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #00ffaa; /* On hover */
+}
+/* Scrollbar color for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ffcc #1a1a1a; /* thumb color, track color */
+}

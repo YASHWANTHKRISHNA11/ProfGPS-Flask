@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Dashboard - ProfGPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="Logo" />
+        <h1>ProfGPS</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <h2>Welcome, {{ profile.name }}</h2>
+    <p><strong>Faculty ID:</strong> {{ profile.faculty_id }}</p>
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+    <p><strong>Department:</strong> {{ profile.department }}</p>
+
+    <hr style="margin: 1.5rem 0; border-color: #7054f9;">
+
+    <h3>Attendance History</h3>
+{% if attendance %}
+  <table style="width: 100%; margin-top: 1rem; border-collapse: collapse;">
+    <thead>
+      <tr style="border-bottom: 1px solid #7054f9;">
+        <th style="text-align: left; padding: 0.5rem;">Date & Time</th>
+        <th style="text-align: left; padding: 0.5rem;">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in attendance %}
+      <tr>
+        <td style="padding: 0.5rem;">{{ record.timestamp }}</td>
+        <td style="padding: 0.5rem;">{{ record.location }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No attendance records yet.</p>
+{% endif %}
+
+  </main>
+
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+</body>
+</html>

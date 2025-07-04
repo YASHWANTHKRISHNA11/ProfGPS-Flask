@@ -1,0 +1,41 @@
+<!-- faculty-login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty Login - ProfGPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+  <div class="container">
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+      <h1>ProfGPS</h1>
+    </div>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+    </nav>
+  </div>
+</header>
+  <main class="form-container">
+    <h2>Faculty Login</h2>
+    {% if error %}
+  <p style="color: red; text-align: center;">{{ error }}</p>
+{% endif %}
+    <form action="{{ url_for('login') }}" method="POST">
+      <input type="text" name="faculty_id" placeholder="Faculty ID or Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Mark Attendance</button>
+    </form>
+  </main>
+
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+</body>
+</html>

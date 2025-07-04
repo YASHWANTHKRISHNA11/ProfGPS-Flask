@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - ProfGPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+        <h1>Admin Dashboard</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <h2>All Faculty</h2>
+    <div class="table-container">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Faculty ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in faculty %}
+          <tr>
+            <td>{{ f[0] }}</td>
+            <td>{{ f[1] }}</td>
+            <td>{{ f[2] }}</td>
+            <td>{{ f[3] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 style="margin-top:2rem;">Attendance Records</h2>
+    <div class="table-container">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Faculty ID</th>
+            <th>Timestamp</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in attendance %}
+          <tr>
+            <td>{{ a[0] }}</td>
+            <td>{{ a[1] }}</td>
+            <td>{{ a[2] }}</td>
+            <td>{{ a[3] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+</body>
+</html>
