@@ -209,3 +209,16 @@ footer {
   background-color: var(--primary);
   border-radius: 10px;
 }
+/* Logo Styling */
+.logo-container img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+.watermark-container img {
+  display: block;
+  margin: 0 auto;
+  max-width: 300px;
+  opacity: 0.1;
+  filter: grayscale(100%);
+}
