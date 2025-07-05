@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Set GPS Boundary - Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+        <h1>GPS Boundary Settings</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <h2>Set GPS Boundary</h2>
+    <form method="POST" action="{{ url_for('gps_boundary') }}">
+      <label for="latitude">Latitude:</label>
+      <input type="text" id="latitude" name="latitude" required />
+
+      <label for="longitude">Longitude:</label>
+      <input type="text" id="longitude" name="longitude" required />
+
+      <label for="radius">Radius (meters):</label>
+      <input type="number" id="radius" name="radius" required />
+
+      <button type="submit">Save Boundary</button>
+    </form>
+    {% if message %}
+  <p class="status-message">{{ message }}</p>
+{% endif %}
+
+    {% if boundary %}
+      <h3>Current Boundary:</h3>
+      <p><strong>Latitude:</strong> {{ boundary[1] }}</p>
+      <p><strong>Longitude:</strong> {{ boundary[2] }}</p>
+      <p><strong>Radius:</strong> {{ boundary[3] }} meters</p>
+    {% endif %}
+  </main>
+
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+</body>
+</html>

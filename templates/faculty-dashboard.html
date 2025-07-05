@@ -26,7 +26,9 @@
     <p><strong>Department:</strong> {{ profile.department }}</p>
 
     <hr style="margin: 1.5rem 0; border-color: #7054f9;">
-
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <a href="{{ url_for('mark_attendance') }}" class="btn">Mark Attendance</a>
+    </div>
     <h3>Attendance History</h3>
 {% if attendance %}
   <table style="width: 100%; margin-top: 1rem; border-collapse: collapse;">

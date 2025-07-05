@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark Attendance - ProfGPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    function markAttendance() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(sendLocation, showError);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function sendLocation(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      fetch("/mark-attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ latitude, longitude })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        window.location.href = "/dashboard"; // Redirect back to dashboard
+      })
+      .catch(error => {
+        alert("Error marking attendance.");
+        console.error(error);
+      });
+    }
+
+    function showError(error) {
+      alert("Unable to retrieve location.");
+      console.error(error);
+    }
+  </script>
+</head>
+<body onload="markAttendance()">
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo">
+        <h1>Marking Attendance...</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <p>Please wait while we verify your location and mark attendance.</p>
+  </main>
+
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo">
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,6 +1,8 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask import jsonify
 import db_config
+import math
 from datetime import datetime
 
 app = Flask(__name__)
@@ -71,6 +73,91 @@ def dashboard():
     conn.close()
 
     return render_template('faculty-dashboard.html', profile=profile, attendance=attendance_records)
+
+@app.route('/gps-boundary', methods=['GET', 'POST'])
+def gps_boundary():
+    conn = db_config.get_connection()
+    cursor = conn.cursor()
+    message = None
+
+    if request.method == 'POST':
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
+        radius = request.form['radius']
+
+        try:
+            # Delete old boundary if exists
+            cursor.execute("DELETE FROM gps_boundary")
+
+            # Insert new boundary
+            cursor.execute(
+                "INSERT INTO gps_boundary (latitude, longitude, radius) VALUES (%s, %s, %s)",
+                (latitude, longitude, radius)
+            )
+            conn.commit()
+            message = "GPS boundary updated successfully!"
+        except Exception as e:
+            message = f"Error updating GPS boundary: {str(e)}"
+
+    # Get current boundary if exists
+    cursor.execute("SELECT * FROM gps_boundary LIMIT 1")
+    boundary = cursor.fetchone()
+
+    conn.close()
+    return render_template('gps-boundary.html', boundary=boundary)
+
+# Helper function to calculate distance between two coordinates
+def is_within_boundary(lat1, lon1, lat2, lon2, radius_m):
+    R = 6371000  # Radius of Earth in meters
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    delta_phi = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+
+    a = math.sin(delta_phi / 2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2)**2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    distance = R * c
+    return distance <= radius_m
+
+# Route to show HTML page (GET) and receive GPS data (POST)
+@app.route('/mark-attendance', methods=['GET', 'POST'])
+def mark_attendance():
+    if 'faculty_id' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'GET':
+        return render_template('mark-attendance.html')
+
+    if request.method == 'POST':
+        data = request.get_json()
+        latitude = data.get('latitude')
+        longitude = data.get('longitude')
+
+        conn = db_config.get_connection()
+        cursor = conn.cursor()
+
+        # Fetch admin-set GPS boundary
+        cursor.execute("SELECT latitude, longitude, radius FROM gps_boundary ORDER BY id DESC LIMIT 1")
+        boundary = cursor.fetchone()
+
+        if not boundary:
+            conn.close()
+            return jsonify({'message': 'Attendance region is not set by admin.'})
+
+        admin_lat, admin_lon, radius = boundary
+
+        if is_within_boundary(latitude, longitude, admin_lat, admin_lon, radius):
+            cursor.execute(
+                "INSERT INTO attendance (faculty_id, timestamp, location) VALUES (%s, NOW(), %s)",
+                (session['faculty_id'], f"{latitude}, {longitude}")
+            )
+            conn.commit()
+            conn.close()
+            return jsonify({'message': 'Attendance marked successfully!'})
+        else:
+            conn.close()
+            return jsonify({'message': 'You are outside the attendance boundary.'})
 
 @app.route('/attendance-success')
 def attendance_success():
