@@ -34,12 +34,13 @@
 
       <button type="submit">Save Boundary</button>
     </form>
+
     {% if message %}
-  <p class="status-message">{{ message }}</p>
-{% endif %}
+      <p class="status-message">{{ message }}</p>
+    {% endif %}
 
     {% if boundary %}
-      <h3>Current Boundary:</h3>
+      <h3 style="margin-top: 2rem;">Current Boundary:</h3>
       <p><strong>Latitude:</strong> {{ boundary[1] }}</p>
       <p><strong>Longitude:</strong> {{ boundary[2] }}</p>
       <p><strong>Radius:</strong> {{ boundary[3] }} meters</p>

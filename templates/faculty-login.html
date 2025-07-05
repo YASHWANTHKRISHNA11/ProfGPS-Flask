@@ -9,21 +9,22 @@
 </head>
 <body>
   <header>
-  <div class="container">
-    <div class="logo-container">
-      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
-      <h1>ProfGPS</h1>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+        <h1>ProfGPS</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+      </nav>
     </div>
-    <nav>
-      <a href="{{ url_for('index') }}">Home</a>
-    </nav>
-  </div>
-</header>
+  </header>
+
   <main class="form-container">
     <h2>Faculty Login</h2>
     {% if error %}
-  <p style="color: red; text-align: center;">{{ error }}</p>
-{% endif %}
+      <p style="color: #F43F5E; text-align: center;">{{ error }}</p>
+    {% endif %}
     <form action="{{ url_for('login') }}" method="POST">
       <input type="text" name="faculty_id" placeholder="Faculty ID or Email" required />
       <input type="password" name="password" placeholder="Password" required />

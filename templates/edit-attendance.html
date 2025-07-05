@@ -6,13 +6,47 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h2>Edit Attendance for {{ record.name }}</h2>
-  <form method="POST">
-    Date: <input type="date" name="date" value="{{ record.date }}"><br>
-    Time: <input type="time" name="time" value="{{ record.time }}"><br>
-    Latitude: <input type="text" name="latitude" value="{{ record.latitude }}"><br>
-    Longitude: <input type="text" name="longitude" value="{{ record.longitude }}"><br>
-    <button type="submit">Update</button>
-  </form>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+        <h1>Edit Attendance</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('admin_attendance_list') }}">Manage Attendance</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Form Section -->
+  <main class="form-container">
+    <h2>Edit Attendance for {{ record.name }}</h2>
+    <form method="POST">
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date" value="{{ record.date }}" required>
+
+      <label for="time">Time:</label>
+      <input type="time" name="time" id="time" value="{{ record.time }}" required>
+
+      <label for="latitude">Latitude:</label>
+      <input type="text" name="latitude" id="latitude" value="{{ record.latitude }}" required>
+
+      <label for="longitude">Longitude:</label>
+      <input type="text" name="longitude" id="longitude" value="{{ record.longitude }}" required>
+
+      <button type="submit" class="btn btn-primary">Update Attendance</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
 </body>
 </html>

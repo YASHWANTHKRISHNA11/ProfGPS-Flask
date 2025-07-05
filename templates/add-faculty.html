@@ -6,15 +6,52 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h2>Add New Faculty</h2>
-  <form method="POST">
-    Name: <input type="text" name="name" required><br>
-    Email: <input type="email" name="email" required><br>
-    Phone: <input type="text" name="phone"><br>
-    Password: <input type="password" name="password" required><br>
-    Department: <input type="text" name="department"><br>
-    Designation: <input type="text" name="designation"><br>
-    <button type="submit">Add Faculty</button>
-  </form>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+        <h1>Add New Faculty</h1>
+      </div>
+      <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('admin_faculty_list') }}">Manage Faculty</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Form Section -->
+  <main class="form-container">
+    <form method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="phone">Phone:</label>
+      <input type="text" name="phone" id="phone">
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+
+      <label for="department">Department:</label>
+      <input type="text" name="department" id="department">
+
+      <label for="designation">Designation:</label>
+      <input type="text" name="designation" id="designation">
+
+      <button type="submit" class="btn btn-primary">Add Faculty</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="watermark-container">
+      <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
+    </div>
+    <p>&copy; 2025 ProfGPS. All rights reserved.</p>
+  </footer>
 </body>
 </html>

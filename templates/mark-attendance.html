@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mark Attendance - ProfGPS</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
   <script>
     function markAttendance() {
       if (navigator.geolocation) {
@@ -26,7 +27,7 @@
       .then(response => response.json())
       .then(data => {
         alert(data.message);
-        window.location.href = "/dashboard"; // Redirect back to dashboard
+        window.location.href = "/dashboard";
       })
       .catch(error => {
         alert("Error marking attendance.");
@@ -40,18 +41,20 @@
     }
   </script>
 </head>
+
 <body onload="markAttendance()">
   <header>
     <div class="container">
       <div class="logo-container">
         <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo">
-        <h1>Marking Attendance...</h1>
+        <h1>ProfGPS</h1>
       </div>
     </div>
   </header>
 
   <main class="form-container">
-    <p>Please wait while we verify your location and mark attendance.</p>
+    <h2>Marking Attendance...</h2>
+    <p>Please wait while we verify your location and complete the process.</p>
   </main>
 
   <footer>

@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="container">
       <div class="logo-container">
@@ -14,11 +15,12 @@
       </div>
       <nav>
         <a href="{{ url_for('index') }}">Home</a>
-        <a href="/logout">Logout</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
       </nav>
     </div>
   </header>
 
+  <!-- Dashboard Content -->
   <main class="form-container">
     <h2>Welcome, {{ profile.name }}</h2>
     <p><strong>Faculty ID:</strong> {{ profile.faculty_id }}</p>
@@ -26,33 +28,39 @@
     <p><strong>Department:</strong> {{ profile.department }}</p>
 
     <hr style="margin: 1.5rem 0; border-color: #7054f9;">
-    <div style="text-align: center; margin-top: 1.5rem;">
+
+    <div style="text-align: center; margin-bottom: 2rem;">
       <a href="{{ url_for('mark_attendance') }}" class="btn">Mark Attendance</a>
     </div>
-    <h3>Attendance History</h3>
-{% if attendance %}
-  <table style="width: 100%; margin-top: 1rem; border-collapse: collapse;">
-    <thead>
-      <tr style="border-bottom: 1px solid #7054f9;">
-        <th style="text-align: left; padding: 0.5rem;">Date & Time</th>
-        <th style="text-align: left; padding: 0.5rem;">Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for record in attendance %}
-      <tr>
-        <td style="padding: 0.5rem;">{{ record.timestamp }}</td>
-        <td style="padding: 0.5rem;">{{ record.location }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p>No attendance records yet.</p>
-{% endif %}
 
+    <h3>Attendance History</h3>
+    {% if attendance %}
+    <div class="table-container">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in attendance %}
+          <tr>
+            <td>{{ record.timestamp }}</td>
+            <td>{{ record.latitude }}</td>
+            <td>{{ record.longitude }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p>No attendance records yet.</p>
+    {% endif %}
   </main>
 
+  <!-- Footer -->
   <footer>
     <div class="watermark-container">
       <img src="{{ url_for('static', filename='LOGO.png') }}" alt="ProfGPS Logo" />
