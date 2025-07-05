@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Attendance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Edit Attendance for {{ record.name }}</h2>
+  <form method="POST">
+    Date: <input type="date" name="date" value="{{ record.date }}"><br>
+    Time: <input type="time" name="time" value="{{ record.time }}"><br>
+    Latitude: <input type="text" name="latitude" value="{{ record.latitude }}"><br>
+    Longitude: <input type="text" name="longitude" value="{{ record.longitude }}"><br>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>

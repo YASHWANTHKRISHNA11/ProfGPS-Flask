@@ -1,9 +1,10 @@
 # app.py
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session , flash
 from flask import jsonify
 import db_config
 import math
 from datetime import datetime
+from db_config import get_connection
 
 app = Flask(__name__)
 app.secret_key = 'profgps-secret'
@@ -73,6 +74,146 @@ def dashboard():
     conn.close()
 
     return render_template('faculty-dashboard.html', profile=profile, attendance=attendance_records)
+
+@app.route('/admin/faculty')
+def admin_faculty_list():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM faculty')
+    faculty_list = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('admin-faculty-list.html', faculty_list=faculty_list)
+
+@app.route('/admin/faculty/add', methods=['GET', 'POST'])
+def add_faculty():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        password = request.form['password']  # You may hash this later
+        department = request.form['department']
+        designation = request.form['designation']
+
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO faculty (name, email, phone, password, department, designation)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        ''', (name, email, phone, password, department, designation))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('New faculty added successfully.')
+        return redirect(url_for('admin_faculty_list'))
+
+    return render_template('add-faculty.html')
+
+@app.route('/admin/faculty/edit/<int:faculty_id>', methods=['GET', 'POST'])
+def edit_faculty(faculty_id):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    # Use %s for MySQL, not ?
+    cursor.execute('SELECT * FROM faculty WHERE id = %s', (faculty_id,))
+    faculty = cursor.fetchone()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        department = request.form['department']
+        designation = request.form['designation']
+
+        cursor.execute('''
+            UPDATE faculty SET name = %s, email = %s, phone = %s, department = %s, designation = %s
+            WHERE id = %s
+        ''', (name, email, phone, department, designation, faculty_id))
+
+        conn.commit()
+        flash('Faculty updated successfully.')
+        return redirect(url_for('admin_faculty_list'))
+
+    cursor.close()
+    conn.close()
+    return render_template('edit-faculty.html', faculty=faculty)
+
+@app.route('/admin/faculty/delete/<int:faculty_id>')
+def delete_faculty(faculty_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM faculty WHERE id = %s', (faculty_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    flash('Faculty deleted successfully.')
+    return redirect(url_for('admin_faculty_list'))
+
+@app.route('/admin/attendance')
+def admin_attendance_list():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+        SELECT attendance.id,
+               DATE(attendance.timestamp) AS date,
+               TIME(attendance.timestamp) AS time,
+               attendance.latitude,
+               attendance.longitude,
+               faculty.name
+        FROM attendance
+        JOIN faculty ON attendance.faculty_id = faculty.id
+        ORDER BY attendance.timestamp DESC
+    ''')
+    attendance_list = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('admin-attendance-list.html', attendance_list=attendance_list)
+
+
+@app.route('/admin/attendance/edit/<int:attendance_id>', methods=['GET', 'POST'])
+def edit_attendance(attendance_id):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute('''
+        SELECT attendance.*, faculty.name FROM attendance
+        JOIN faculty ON attendance.faculty_id = faculty.id
+        WHERE attendance.id = %s
+    ''', (attendance_id,))
+    record = cursor.fetchone()
+
+    if request.method == 'POST':
+        date = request.form['date']
+        time = request.form['time']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
+
+        cursor.execute('''
+            UPDATE attendance SET date = %s, time = %s,
+            latitude = %s, longitude = %s
+            WHERE id = %s
+        ''', (date, time, latitude, longitude, attendance_id))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash('Attendance record updated successfully.')
+        return redirect(url_for('admin_attendance_list'))
+
+    cursor.close()
+    conn.close()
+    return render_template('edit-attendance.html', record=record)
+
+@app.route('/admin/attendance/delete/<int:attendance_id>')
+def delete_attendance(attendance_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM attendance WHERE id = %s', (attendance_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    flash('Attendance record deleted successfully.')
+    return redirect(url_for('admin_attendance_list'))
 
 @app.route('/gps-boundary', methods=['GET', 'POST'])
 def gps_boundary():
