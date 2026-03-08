@@ -1,51 +1,28 @@
-# ProfGPS
+# GPS-based Faculty Attendance System Documentation
 
-## Project Overview
-ProfGPS is a Flask-based web application designed to help users track and plan their academic activities effectively. The application provides features for managing schedules, courses, and assignments.
+## Introduction
+The GPS-based Faculty Attendance System is designed to automate the process of recording attendance for faculty members using GPS technology. This system is particularly useful for institutions where faculty members are required to be present at specific locations during their working hours.
 
 ## Features
-- **User Authentication**: Secure login and registration for users.
-- **Course Management**: Add, edit, and delete courses from your schedule.
-- **Assignment Tracking**: Keep track of assignments and their due dates.
-- **Notifications**: Get reminders for upcoming assignments and deadlines.
-- **Responsive Design**: Accessible on both desktop and mobile devices.
+- **Real-time Tracking**: Monitor the location of faculty members in real-time using GPS coordinates.
+- **Attendance Logging**: Automatically record attendance based on location data.
+- **User-friendly Interface**: Easy-to-use interface for both administrators and faculty members.
+- **Reports Generation**: Ability to generate reports on attendance for analysis.
 
-## Technology Stack
-- **Backend**: Flask, SQLAlchemy
-- **Frontend**: HTML, CSS, JavaScript
-- **Database**: SQLite or PostgreSQL
-- **Deployment**: Docker
+## How It Works
+1. **User Registration**: Faculty members register on the platform to create their profiles.
+2. **Location Access**: The system requests access to the user's GPS location.
+3. **Check-in/Check-out System**: Faculty members can check in when they arrive at their designated location and check out when they leave.
+4. **Data Collection**: The application collects GPS data during the check-in process.
+5. **Attendance Marking**: Attendance is marked based on the GPS data collected during the check-in period.
 
-## Installation
-To set up the project locally, follow these steps:
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/YASHWANTHKRISHNA11/ProfGPS-Flask.git
-   ```
-2. Navigate into the project directory:
-   ```bash
-   cd ProfGPS-Flask
-   ```
-3. Install the required packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Set up the database:
-   ```bash
-   python -m flask db upgrade
-   ```
-5. Run the application:
-   ```bash
-   flask run
-   ```
+## Technical Details
+- **Technology Stack**: Flask, SQLAlchemy, SQLite, JavaScript, HTML/CSS
+- **API Endpoints**: The system provides various API endpoints for interaction with the front end.
+- **Database Schema**: A detailed schema of the database to manage users and attendance records.
 
-## Usage
-- Visit `http://localhost:5000` in your web browser to access the application.
-- Create an account or log in if you already have one.
-- Start managing your academic activities through the provided features.
+## Installation Guide
+To set up the system, follow the installation guide provided in the repository.
 
-## Contributing
-Contributions are welcome! Please create a pull request for any changes you'd like to propose.
-
-## License
-This project is licensed under the MIT License.
+## Conclusion
+The GPS-based Faculty Attendance System provides an effective way to ensure accurate attendance recording using modern technology. With its array of features, it aims to simplify the attendance management process for educational institutions.
