@@ -1,40 +1,64 @@
-# ProfGPS Flask Documentation
+# Project Overview
+This project is a GPS-based faculty attendance system designed to automate and streamline the attendance process for educational institutions. The application leverages GPS technology to accurately track faculty attendance, ensuring accountability and transparency.
 
-## Introduction
-ProfGPS is a Flask-based web application designed to facilitate general practices with intuitive features and robust functionalities.
+# Faculty Features
+- View attendance records
+- Mark attendance using GPS tracking
+- Notification for attendance status
 
-## Database Configuration
-- **Database Type**: PostgreSQL
-- **Database URI**: `postgresql://username:password@localhost:5432/profgps`
-- Replace `username` and `password` with your database credentials.
+# Admin Features
+- Manage faculty profiles and attendance records
+- Generate reports based on attendance data
+- Set attendance policies and rules
 
-## Routes
-### GET /
-- Returns the homepage of the application.
+# Technology Stack
+- **Frontend:** HTML, CSS
+- **Backend:** Flask (Python)
+- **Database:** MySQL
 
-### GET /api/v1/resource
-- Retrieves a list of resources.
+# Installation Guide
+1. Clone the repository:
+   ```
+   git clone https://github.com/YASHWANTHKRISHNA11/ProfGPS-Flask.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd ProfGPS-Flask
+   ```
+3. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+4. Set up the MySQL database and update the configuration files.
+5. Run the application:
+   ```
+   python app.py
+   ```
 
-### POST /api/v1/resource
-- Adds a new resource. Requires a JSON body with the resource details.
+# Database Schema
+The database consists of the following main tables:
+- `users`: Stores faculty and admin user information
+- `attendance`: Records attendance with timestamps and GPS coordinates
 
-### PUT /api/v1/resource/<id>
-- Updates the resource with the specified id.
+# GPS Attendance Mechanism with Haversine Formula
+The application uses the Haversine formula to calculate the distance between the faculty's location and the specified coordinates for attendance marking. This ensures that attendance is recorded only when the faculty is within a certain radius of the institution.
 
-### DELETE /api/v1/resource/<id>
-- Deletes the resource with the specified id.
+# API Routes Documentation
+- `GET /api/attendance`: Retrieve attendance records
+- `POST /api/mark-attendance`: Mark attendance using GPS coordinates
 
-## Security Details
-- The application uses JWT for authentication.
-- All sensitive data should be handled securely, ensuring to use HTTPS.
-- User passwords are hashed using bcrypt before storage.
+# Security Features
+- User authentication and authorization
+- Data encryption and secure database connections
+- Input validation to prevent SQL injection and other attacks
 
-## Features
-1. **User Authentication**: Secure login and registration flow with validation.
-2. **Data Management**: CRUD operations for managing application data.
-3. **Role-Based Access Control**: Different user roles with specific access rights. 
-4. **Real-time Updates**: Utilize web sockets for real-time data updates.
-5. **Error Handling**: Comprehensive error handling to improve user experience.
+# Troubleshooting Guide
+- **Issue:** Unable to connect to the database
+  - **Solution:** Check the database configurations and ensure the MySQL service is running.
+- **Issue:** GPS not accurate
+  - **Solution:** Ensure that location services are enabled on the device.
 
-## Conclusion
-This documentation serves as an illustrative guide to configuring and utilizing the ProfGPS application. For further assistance, refer to the application code or contact the development team.
+# Future Enhancements
+- Implement facial recognition for attendance marking.
+- Integrate with learning management systems (LMS).
+- Add mobile application for easier attendance management.
